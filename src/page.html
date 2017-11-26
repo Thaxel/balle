@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test animations</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #060065;
+        }
+
+        img {
+            display: block;
+            margin: 0;
+            border: 0;
+            width: 19px;
+            height: 19px;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+    </style>
+</head>
+<body>
+<img id="bal" src="balle.gif">
+
+<script type="text/javascript">
+    var oy = ox = 30, ny = ov = nv = oc = nc = nx = 0, ky = 0.60, kv = 0.0002, dx = 0.2 + Math.random() * 4;
+
+    function ballMove() {
+        if (nv) s = nv / Math.abs(nv); else s = 1;
+        na = ky - s * kv * ov * ov;
+        nv = ov + na;
+        ny = oy + nv;
+        nx = ox + dx;
+        if (500 < ny) {
+            ny = 1000 - ny;
+            nv = -nv * 0.95;
+            dx = 0.900 * dx
+        }  // bounce
+        if (Math.abs(nv) < 1 && dx < 0.30) return;
+
+        oy = ny;
+        ov = nv;
+        oc = nv;
+        ox = nx;
+
+
+        document.getElementById('bal').style.top = Math.round(ny) + 'px';
+        document.getElementById('bal').style.left = Math.round(nx) + 'px';
+
+        setTimeout(ballMove, 15);
+    }
+
+    ballMove();
+
+</script>
+</body>
+</html>
